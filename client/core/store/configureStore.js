@@ -4,7 +4,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import jwtDecode from 'jwt-decode';
 import rootReducer from '../reducers';
 import setAuthorizationToken from '../auth/setAuthorizationToken';
-import { actions } from '../../user';
+import user from '../../user';
 
 let finalCreateStore;
 
@@ -25,7 +25,7 @@ export default () => {
 
   if (token) {
     setAuthorizationToken(token);
-    store.dispatch(actions.setCurrentUser(jwtDecode(token)));
+    store.dispatch(user.actions.setCurrentUser(jwtDecode(token)));
   }
   return store;
 };

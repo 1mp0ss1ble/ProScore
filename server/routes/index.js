@@ -1,0 +1,29 @@
+const express = require('express');
+
+const router = express.Router();
+
+
+router.get('/', (req, res) => {
+  res.json({ msg: 'API default route...' });
+});
+
+/*
+router.use('/api/tournament', require('./tournament'));
+
+router.use('/api/event', require('./event'));
+
+router.use('/api/team', require('./team'));
+
+router.use('/api/match', require('./match'));
+
+router.use('/api/player', require('./player'));
+
+router.use('/api/auth', require('./auth'));
+*/
+
+router.use('/user', require('./user'));
+router.use('/event', require('./event'));
+router.use('/team', require('./team'));
+router.use('/match', require('./match'));
+
+module.exports = router;

@@ -1,0 +1,39 @@
+import path from 'path';
+import webpack from 'webpack';
+
+export default {
+	devtools: 'eval-source-map',
+	entry: [
+		'webpack-hot-middleware/client',
+		path.join(__dirname, '/client/core/index.js')
+	],
+	output: {
+		path: '/',
+		publicPath: '/',
+		filename: 'bundle.js'
+	},
+	plugins: [
+		new webpack.NoErrorsPlugin(),
+		new webpack.optimize.OccurrenceOrderPlugin(),
+		new webpack.HotModuleReplacementPlugin()
+	],
+	module: {
+		loaders : [
+			{
+				test: /\.js$/,
+				include: [
+					path.join(__dirname, 'client'),
+					path.join(__dirname, 'server/shared'),
+				],
+				loaders: ['react-hot','babel']
+			},
+			{
+		        test: /\.css$/, // Only .css files
+		        loader: 'style!css' // Run both loaders
+	      	}
+		]
+	},
+	resolve: {
+		extensions: ['','.js','.jsx']
+	}
+}

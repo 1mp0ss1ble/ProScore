@@ -15,6 +15,8 @@ module.exports = {
   actions: {
     showModal: obj =>
       ({ modalType: 'team', type: 'OPEN_MODAL', payload: obj }),
+    teamDetails: obj =>
+    ({ modalType: 'teamDetails', type: 'OPEN_MODAL', payload: obj }),
   },
   selectors: {
     getAll,

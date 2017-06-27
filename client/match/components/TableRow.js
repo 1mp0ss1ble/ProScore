@@ -15,13 +15,13 @@ export default function({ event, index, match, onClick, hideDetails = true }) {
 		<tr className="link" onClick={() => onClick(match)}>
 			<td>{index + 1}</td>
 			<td>{homeDesc}</td>
-			<td>{' '}{resultText }{' '}</td>
+			<td>{' '}{resultText }{' '}{match.link && <kbd>video</kbd>}</td>
 			<td>{guestDesc}</td>
 			<td>
 				{!hideDetails &&
 					<span> {' '} <span> {eventArray.join(' | ')}</span> </span>
 				}
-				{' '}{date}
+				{' '}{match.date} {match.time}
 			</td>
 		</tr>
 	);

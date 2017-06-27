@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route, hashHistory } from 'react-router';
 import Home from '../../pages/home/';
+import Event from '../../pages/event/';
 import Admin from '../../pages/admin/';
 import App from './App';
 import configureStore from '../store/configureStore';
@@ -16,8 +17,9 @@ const Root = () => (
 	<Provider store={configureStore()}>
 		<Router history={hashHistory}>
 			<Route component={App}>
-				<Route path="/" component={Home} />
 				<Route path="admin(/:type)" component={Admin} />
+				<Route path="event(/:desc)" component={Event} />
+				<Route path="/" component={Home} />
 			</Route>
 		</Router>
 	</Provider>

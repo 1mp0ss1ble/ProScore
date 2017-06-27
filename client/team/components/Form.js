@@ -123,6 +123,34 @@ class ModelForm extends React.Component {
               placeholder="Info"
             />
           </ErrorWrapper>
+          <Input
+            value={this.state.city}
+            onChange={this.onChange}
+            name="city"
+            placeholder="City"
+          />
+          <br />
+          <Input
+            value={this.state.logo}
+            onChange={this.onChange}
+            name="logo"
+            placeholder="logo"
+          />
+          <br />
+          <Input
+            value={this.state.link}
+            onChange={this.onChange}
+            name="link"
+            placeholder="Link"
+          />
+          <br />
+          <Input
+            value={this.state.sponsor}
+            onChange={this.onChange}
+            name="sponsor"
+            placeholder="sponsor"
+          />
+          <br />  
           is Active?
           <input
             checked={this.state.isActive}

@@ -14,6 +14,7 @@ const ModelSchema = new Schema({
   homeId: String,
   guestId: String,
   round: Number,
+  date: String,
   time: String,
   homeScore: Number,
   guestScore: Number,

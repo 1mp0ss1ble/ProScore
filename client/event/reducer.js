@@ -31,12 +31,13 @@ module.exports = {
       ({ modalType: 'event', type: 'OPEN_MODAL', payload: obj }),
     home: {
       /* get event as main model then append other to it*/
-      getEvent: id => (dispatch) => {
+      getEvent: criteria => (dispatch) => {
         dispatch({ key: 'home', type: actions.FETCH_REQUEST });
         let event = {};
-        api.events.get({ _id: id })(null)
+        api.events.get(criteria)(null)
         .then((res) => {
           event = res.data[0];
+          const id = event._id;
           if (!event.teams.length) {
             return dispatch({ key: 'home', type: actions.FETCH_SUCCESS, payload: event });
           }

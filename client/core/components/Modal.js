@@ -44,6 +44,22 @@ const Modal = ({ state, dispatch }) => {
             closeModalAction={closeModalAction}
           />
         );
+      case types.matchDetails:
+        return (
+          <match.components.MatchDetails
+            model={state.content}
+            dispatch={dispatch}
+            closeModalAction={closeModalAction}
+          />
+        );
+        case types.teamDetails:
+          return (
+            <team.components.TeamDetails
+              model={state.content}
+              dispatch={dispatch}
+              closeModalAction={closeModalAction}
+            />
+          );
       default:
         return <div>default</div>;
     }

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
+import { hashHistory, Link } from 'react-router';
 import isEmpty from 'lodash/isEmpty';
 import News from './News';
 import user from '../../user';
@@ -63,31 +63,33 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      eventId: this.props.params.eventId || null,
+      eventDesc: this.props.params.eventDesc || null,
     };
     this.showEvent = this.showEvent.bind(this);
 
   }
-  showEvent(_id) {
+
+  componentDidMount() {
+    api.events.get({ isActive: true });
+  }
+
+  showEvent(_id, text) {
+    //hashHistory.push('/'+ text);
     this.setState({ eventId: _id });
-    this.props.dispatch(event.actions.home.getEvent(_id));
+    this.props.dispatch(event.actions.home.getEvent(_id))
   }
 
   render() {
-    const { eventId } = this.state;
+   //const { eventId, eventDesc } = this.state;
+    const { dispatch, events } = this.props;
     //console.log(this.props.event);
     return (
       <div>
-        <event.components.EventsList
-          showEvent={this.showEvent}
-          defaultValue={eventId}
-        />
-        {eventId ? !isEmpty(this.props.event) && !this.props.event.isLoading
-            ? <event.components.Table obj={this.props.event} />
-            : this.props.event.isLoading
-              ? <p>loading...</p>
-              : <p>empty</p>
-              : <p></p>
+        { !events.items.length && event.isLoading
+          ? <p>Loading...</p>
+          : events.items.map( evt => <p key={evt._id}>
+            <Link to={`event/${evt.desc}`}>{evt.desc}</Link>
+          </p>)
         }
       </div>
 
@@ -152,6 +154,7 @@ class Home extends React.Component{
 export default connect(state => ({
   user: user.selectors.getAll(state),
   event: state.home,
+  events: event.selectors.getAll(state),
   active: state.active,
 }))(Home);
 

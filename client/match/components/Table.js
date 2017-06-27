@@ -8,7 +8,8 @@ function getTeamDesc(teams) {
   }
 }
 
-const Matches = ({ event, isPlayed, onClickMatch }) => {
+const Matches = ({ event, isPlayed, ...rest }) => {
+  console.log('match', rest);
   const filtered = event.matchesFull.filter(x =>
 		isPlayed
 		? (x.homeScore && x.guestScore)
@@ -35,7 +36,7 @@ const Matches = ({ event, isPlayed, onClickMatch }) => {
                 index={index}
                 match={t}
                 event={event}
-                onClick={onClickMatch}
+                onClick={rest.onClickMatch}
               />
             )})}
 				</tbody>

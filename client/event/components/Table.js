@@ -101,20 +101,35 @@ function getTable(obj) {
 	return { maxPlayedMatches, tableArr };
 }
 
-export default function renderTable({ obj }) {
+export default function Table({ obj, ...rest }) {
+	console.log('rest!!', obj.teamsFull);
 	// const matches = obj.matchesFull || []; //allMatches.filter(m => m.eventId === obj._id);
 	// const teamsFull = obj.teamsFull || []
 
 
-	if (!obj.teams.length) {
+	if (!obj || !obj.teams.length) {
 		return <div>no teams...</div>;
 	}
 
 	const { maxPlayedMatches, tableArr } = getTable(obj);
 
+	// order by total points
+	tableArr.sort((a, b) => {
+		if (a.score.getTotal() === b.score.getTotal()) {
+			return a.desc.toLowerCase().localeCompare(b.desc.toLowerCase());
+		}
+		return b.score.getTotal() - a.score.getTotal();
+	});
+
+
 	return (
 		<div>
-			<h3>Results</h3>
+			<div className="row">
+    		<div className="col-md-6 col-md-offset-3">
+					<h3>{obj.desc}</h3>
+				</div>
+			</div>
+			<h4>Results</h4>
 			<table className="table table-striped table-bordered table-condensed table-hover">
 				<thead>
 					<tr className="text-bold">
@@ -131,7 +146,7 @@ export default function renderTable({ obj }) {
 							<td>{index + 1}</td>
 							<td
 								className="link"
-								onClick={() => { alert(t.desc); }}
+								onClick={() => rest.onClickTeam(t)}
 							>
 								{t.desc}
 							</td>
@@ -146,10 +161,10 @@ export default function renderTable({ obj }) {
 			<h3>Matches</h3>
 
 			<h4>Upcoming</h4>
-			{<match.components.Table event={obj} />}
+			{<match.components.Table event={obj} {...rest} />}
 
 			<h4>Played</h4>
-			{<match.components.Table event={obj} isPlayed />}
+			{<match.components.Table event={obj} {...rest} isPlayed />}
 		</div>
 	);
 }

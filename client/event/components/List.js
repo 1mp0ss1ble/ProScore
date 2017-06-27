@@ -12,7 +12,11 @@ class EventsList extends React.Component {
     return (
       <select
         defaultValue={defaultValue}
-        onChange={(e) => { this.props.showEvent(e.target.value); }}
+        onChange={(e) => {
+          const index = e.target.selectedIndex;
+          const { value, text } = e.target[index];
+          this.props.showEvent(value, text);
+         }}
       >
         <option value="">Select an event{!events.items.length && events.isLoading && ' (loading...)' }</option>
         { events.items.length &&

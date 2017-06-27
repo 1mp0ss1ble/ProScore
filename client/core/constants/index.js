@@ -2,6 +2,8 @@ export const types = {
   team: 'team',
   player: 'player',
   match: 'match',
+  matchDetails: 'matchDetails',
+  teamDetails: 'teamDetails',
   event: 'event',
   user: 'user',
   tournament: 'tournament',
